@@ -41,24 +41,16 @@ const save = () => {
     try {
         let employeePayrollData = createEmployeePayroll();
     } catch (e) {
-        console.log(e);
-        for (i = 0; i < 100000; i++) {
-            console.log(i);
-        }
-        setTimeout(function() {
-
-        }, 10000);
         return;
     }
 }
 const createEmployeePayroll = () => {
     let employeePayrollData = new EmployeePayroll();
     employeePayrollData.name = getInputValueById('#name');
-    console.log(employeePayrollData.name);
     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
     employeePayrollData.department = getSelectedValues('[name=department]');
     employeePayrollData.salary = getInputValueById('#salary');
-    let date = getInputValueById('#day') + "" + getInputValueById('#month') + "" + getInputValueById('#year');
+    let date = getInputValueById('#month') + " " + getInputValueById('#day') + " " + getInputValueById('#year');
     employeePayrollData.startDate = new Date(date);
     window.alert(employeePayrollData.toString());
     return employeePayrollData;
@@ -66,12 +58,6 @@ const createEmployeePayroll = () => {
 
 const getInputValueById = (id) => {
     let value = document.querySelector(id).value;
-    console.log(value);
-    return value;
-}
-
-const getInputElementValue = (id) => {
-    let value = document.getElementById(id).value;
     return value;
 }
 

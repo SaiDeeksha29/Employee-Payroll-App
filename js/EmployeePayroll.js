@@ -3,16 +3,12 @@ class EmployeePayroll {
     constructor() {
 
     }
+
     get id() {
         return this._id;
     }
-
     set id(id) {
-        let idRegex = RegExp('[1-9]{1}[0-9]*');
-        if (idRegex.test(id))
-            this._id = id;
-        else
-            throw 'Id is incorrect';
+        this._id = id;
     }
     get name() {
         return this._name;
@@ -21,6 +17,12 @@ class EmployeePayroll {
         let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$");
         if (nameRegex.test(name)) this._name = name;
         else throw "Name is incorrect";
+    }
+    get profilePic() {
+        return this._profilePic;
+    }
+    set profilePic(profilePic) {
+        this._profilePic = profilePic;
     }
     get gender() {
         return this._gender;
@@ -42,16 +44,22 @@ class EmployeePayroll {
             this._startDate = startDate;
         else throw "Start date is incorrect";
     }
-    get departments() {
-        return this._departments;
+    get department() {
+        return this._department;
     }
-    set departments(departments) {
-        this._departments = departments;
+    set department(department) {
+        this._department = department;
+    }
+    get notes() {
+        return this._notes;
+    }
+    set notes(notes) {
+        this._notes = notes;
     }
 
     toString() {
         const format = { year: "numeric", month: "long", day: "numeric" };
         const date = this.startDate === undefined ? "undefined" : this.startDate.toLocaleDateString("en-IN", format);
-        return "id = " + this.id + ", name = " + this.name + ", salary = " + this.salary + ", gender = " + this.gender + ", start date = " + this.startDate + ", departments = " + this.departments;
+        return "id = " + this.id + ", name = " + this.name + ", profile Pic = " + this.profilePic + ", salary = " + this.salary + ", gender = " + this.gender + ", start date = " + date + ", department = " + this.department + ", notes = " + this.notes;
     }
 }
