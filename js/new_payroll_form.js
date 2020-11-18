@@ -13,21 +13,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
             textError.textContent = e;
         }
     });
-    const startdate = document.querySelector("#startDate");
-    const day = document.querySelector("#day");
-    const month = document.querySelector("#month");
-    const year = document.querySelector("#year");
-    const dateError = document.querySelector(".date-error");
-    startdate.addEventListener("input", function() {
-        try {
-            new EmployeePayroll().startDate = new Date(
-                Date.UTC(year.value, month.value - 1, day.value)
-            );
-            dateError.textContent = "";
-        } catch (e) {
-            dateError.textContent = e;
-        }
-    });
 
     const salary = document.querySelector("#salary");
     const output = document.querySelector(".salary-output");
@@ -47,9 +32,11 @@ const save = () => {
 const createEmployeePayroll = () => {
     let employeePayrollData = new EmployeePayroll();
     employeePayrollData.name = getInputValueById('#name');
+    employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop();
     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
     employeePayrollData.department = getSelectedValues('[name=department]');
     employeePayrollData.salary = getInputValueById('#salary');
+    employeePayrollData.notes = getInputValueById('#notes');
     let date = getInputValueById('#month') + " " + getInputValueById('#day') + " " + getInputValueById('#year');
     employeePayrollData.startDate = new Date(date);
     window.alert(employeePayrollData.toString());
