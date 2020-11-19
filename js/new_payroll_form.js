@@ -67,7 +67,7 @@ function createAndUpdateStorage(employeePayrollData) {
         employeePayrollList = [employeePayrollData];
     }
     alert(employeePayrollList.toString());
-    localStorage.setItem("EmployeePayrollList", JSON.stringify(eemployeePayrollList));
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 
 const createEmployeePayroll = () => {
