@@ -53,7 +53,7 @@ class EmployeePayroll {
     }
 
     toString() {
-        const format = { year: "numeric", month: "long", day: "numeric" };
+        const format = { year: "numeric", month: "short", day: "numeric" };
         const date = this.startDate === undefined ? "undefined" : this.startDate.toLocaleDateString("en-IN", format);
         return "id = " + this.id + ", name = " + this.name + ", profile Pic = " + this.profilePic + ", salary = " + this.salary + ", gender = " + this.gender + ", start date = " + date + ", department = " + this.department + ", notes = " + this.notes;
     }

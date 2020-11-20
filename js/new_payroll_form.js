@@ -1,3 +1,6 @@
+let isUpdate = false;
+let employeePayrollObj = {};
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const name = document.querySelector("#name");
     const textError = document.querySelector(".text-error");
@@ -31,6 +34,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
             setTextValue('.date-error', e);
         }
     });
+
+    checkForUpdate();
 });
 
 const save = () => {
@@ -116,4 +121,50 @@ const getSelectedValues = (propertyValue) => {
             selItems.push(item.value);
     });
     return selItems;
+}
+
+const checkForUpdate = () => {
+    const employeePayrollJSON = localStorage.getItem('editEmp');
+    isUpdate = employeePayrollJSON ? true : false;
+    if (!isUpdate) return;
+    empPayrollObj = JSON.parse(employeePayrollJSON);
+    setForm();
+}
+
+const setForm = () => {
+    setValue('#name', empPayrollObj._name);
+    setSelectedValues('[name=profile]', empPayrollObj._profilePic);
+    setSelectedValues('[name=gender]', empPayrollObj._gender);
+    setSelectedValues('[name=department]', empPayrollObj._department);
+    setValue('#salary', empPayrollObj._salary);
+    setTextValue('.salary-output', empPayrollObj._salary);
+    setValue('#notes', empPayrollObj._notes);
+    console.log(empPayrollObj._startDate);
+    let date = stringifyDate(empPayrollObj._startDate).split(" ");
+    console.log(date);
+    setValue('#day', date[0]);
+    setValue('#month', date[1]);
+    setValue('#year', date[2]);
+}
+
+const stringifyDate = (date) => {
+    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+    const newDate = !date ? "undefined" : new Date(Date.parse(date)).toLocaleDateString('en-IN', options);
+    return newDate;
+}
+
+const setSelectedIndex = (id, index) => {
+    const element = document.querySelector(id);
+    element.selectedIndex = index;
+}
+
+const setSelectedValues = (propertyValue, value) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        if (Array.isArray(value)) {
+            if (value.includes(item.value)) {
+                item.checked = true;
+            }
+        } else if (item.value === value) item.checked = true;
+    });
 }
