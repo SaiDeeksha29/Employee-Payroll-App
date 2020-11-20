@@ -1,9 +1,4 @@
 class EmployeePayroll {
-
-    constructor() {
-
-    }
-
     get id() {
         return this._id;
     }
@@ -40,9 +35,9 @@ class EmployeePayroll {
         return this._startDate;
     }
     set startDate(startDate) {
-        if (startDate.toLocaleDateString <= new Date().toLocaleDateString)
+        if (startDate <= new Date()) {
             this._startDate = startDate;
-        else throw "Start date is incorrect";
+        } else throw "Start date is incorrect";
     }
     get department() {
         return this._department;
