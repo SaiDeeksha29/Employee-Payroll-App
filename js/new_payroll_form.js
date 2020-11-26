@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     startdate.addEventListener("input", function() {
         let date = new Date(Date.parse(getInputValueById('#month') + " " + getInputValueById('#day') + " " + getInputValueById('#year')));
         try {
-            checkStartDate(new Date(date));
+            checkStartDate(new Date(Date.parse(startDate)));
             setTextValue('.date-error', "");
         } catch (e) {
             setTextValue('.date-error', e);
@@ -42,12 +42,33 @@ const save = (event) => {
     event.stopPropagation();
     try {
         setEmployeePayrollObject();
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page);
+        if (site_properties.use_local_storage.match("true")) {
+            createAndUpdateStorage();
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        } else {
+            createOrUpdateEmployeePayroll();
+        }
     } catch (e) {
         return;
     }
+}
+
+const createOrUpdateEmployeePayroll = () => {
+    let postURL = site_properties.server_url;
+    let methodCall = "POST";
+    if (isUpdate) {
+        methodCall = "PUT";
+        postURL = postURL + employeePayrollObj.id.toString();
+    }
+    makeServiceCall(methodCall, postURL, true, employeePayrollObj)
+        .then(responseText => {
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        })
+        .catch(error => {
+            throw error;
+        });
 }
 
 function createAndUpdateStorage() {
